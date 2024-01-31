@@ -1,18 +1,15 @@
 /* eslint-disable no-use-before-define */
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
 
-import React, { useState } from 'react';
-import { Task } from './components/Task';
-import { Input } from './components/Input';
+import React, { useState } from "react";
+import { Task } from "./components/Task";
+import { TasksInput } from "./components/TasksInput";
+import { Tasks } from "./types/Tasks";
 
 export default function App() {
   const [taskItems, setTaskItems] = useState([]);
 
-  const handleAddTask = (task: string) => {
+  const handleAddTask = (task: Tasks) => {
     setTaskItems([...taskItems, task]);
   };
 
@@ -27,17 +24,19 @@ export default function App() {
       <View style={styles.tasksWrapper}>
         <Text style={styles.tasksTitle}>Todo app</Text>
         <View style={styles.items}>
-          {taskItems.map((task) => (
+          {taskItems.map((task, index) => (
             <Task
-              key={task}
-              text={task}
-              onPress={() => handleDeleteTask(taskItems.indexOf(task))}
+              key={index}
+              name={task.name}
+              description={task.description}
+              date ={task.date}
+              onPress={() => handleDeleteTask(index)}
             />
           ))}
         </View>
       </View>
       <View style={styles.writeTaskWrapper}>
-        <Input onAddTask={handleAddTask} />
+        <TasksInput onAddTask={handleAddTask} />
       </View>
     </View>
   );
@@ -46,26 +45,26 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: "#E8EAED",
   },
   tasksWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   tasksTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontWeight: "bold",
+    color: "#000000",
   },
   items: {
     marginTop: 30,
   },
   writeTaskWrapper: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
-    justifyContent: 'center',
-    width: '100%',
+    justifyContent: "center",
+    width: "100%",
   },
 });
