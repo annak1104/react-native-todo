@@ -48,7 +48,7 @@ export const TasksInput: React.FC<Props> = ({ onAddTask }) => {
       task.description.trim() !== "" &&
       task.date.trim() !== ""
     ) {
-      onAddTask(task);
+      onAddTask({ ...task, checked: false });
       setTask({ name: "", description: "", date: "" });
     }
   };

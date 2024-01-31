@@ -7,20 +7,39 @@ type Props = {
   name: string;
   description: string;
   date: string;
+  checked: boolean;
+  onCheckedTask: () => void;
 };
 
-export const Task: React.FC<Props> = ({ onPress, name, description, date }) => {
+export const Task: React.FC<Props> = ({
+  onPress,
+  name,
+  description,
+  date,
+  checked,
+  onCheckedTask,
+}) => {
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <TouchableOpacity style={styles.square} onPress={onPress} />
         <View style={styles.itemRow}>
-          <Text style={styles.itemText}>{name}</Text>
+          <Text
+            style={[
+              styles.itemText,
+              checked && styles.checkedItemText,
+            ]}
+          >
+            {name}
+          </Text>
           <Text style={styles.itemDescription}>{description}</Text>
           <Text style={styles.itemDate}>{date}</Text>
         </View>
       </View>
-      <View style={styles.circle} />
+      <TouchableOpacity
+        onPress={onCheckedTask}
+        style={[styles.circle, checked && styles.checkedCircle]}
+      />
     </View>
   );
 };
@@ -69,5 +88,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     marginLeft: 10,
+  },
+  checkedCircle: {
+    backgroundColor: "#8FED8F",
+  },
+  checkedItemText: {
+    textDecorationLine: "line-through",
   },
 });
