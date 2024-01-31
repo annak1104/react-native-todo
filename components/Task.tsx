@@ -4,15 +4,21 @@ import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
 
 type Props = {
   onPress: () => void;
-  text: string;
+  name: string;
+  description: string;
+  date: string;
 };
 
-export const Task: React.FC<Props> = ({ onPress, text }) => {
+export const Task: React.FC<Props> = ({ onPress, name, description, date }) => {
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <TouchableOpacity style={styles.square} onPress={onPress} />
-        <Text style={styles.itemText}>{text}</Text>
+        <View style={styles.itemRow}>
+          <Text style={styles.itemText}>{name}</Text>
+          <Text style={styles.itemDescription}>{description}</Text>
+          <Text style={styles.itemDate}>{date}</Text>
+        </View>
       </View>
       <View style={styles.circle} />
     </View>
@@ -42,8 +48,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 10,
   },
+  itemRow: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
   itemText: {
-    maxWidth: "80%",
+    maxWidth: "100%",
+    fontSize: 20,
+  },
+  itemDescription: {
+    fontSize: 10,
+  },
+  itemDate: {
+    fontSize: 12,
   },
   circle: {
     width: 12,
