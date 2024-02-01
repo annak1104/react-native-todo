@@ -10,12 +10,18 @@ export default function App() {
   const [taskItems, setTaskItems] = useState([]);
 
   const handleAddTask = (task: Tasks) => {
-    setTaskItems([...taskItems, task]);
+    setTaskItems([...taskItems, { ...task, checked: false }]);
   };
 
   const handleDeleteTask = (index: number) => {
     const copyTaskItems = [...taskItems];
     copyTaskItems.splice(index, 1);
+    setTaskItems(copyTaskItems);
+  };
+
+  const handleCheckedTask = (index: number) => {
+    const copyTaskItems = [...taskItems];
+    copyTaskItems[index].checked = !copyTaskItems[index].checked;
     setTaskItems(copyTaskItems);
   };
 
@@ -31,6 +37,8 @@ export default function App() {
               description={task.description}
               date ={task.date}
               onPress={() => handleDeleteTask(index)}
+              checked={task.checked}
+              onCheckedTask={() => handleCheckedTask(index)}
             />
           ))}
         </View>
